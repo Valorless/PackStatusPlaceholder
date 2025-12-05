@@ -3,6 +3,8 @@ Tracks players' resource-pack status and runs configurable console commands (and
 
 `%pack_status%` returns true/false depending on pack status.
 
+Native 1.20.3, tested on 1.21.1 & 1.21.10
+
 ## Config
 ```yml
 # Should the status be logged in the console?
