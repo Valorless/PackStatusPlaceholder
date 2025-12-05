@@ -1,0 +1,22 @@
+# Should the status be logged in the console?
+# i.e. "USERNAME Pack Accepted"
+log: false
+
+# Delay in ticks before executing commands
+delay: 20 # 20 = 1 second
+
+# Command sent per events, sent through console.
+## %username%, %uuid%, %s (alias for %username%)
+# [] = No commands
+commands:
+  join: []
+  quit: []
+  accepted: []
+  loaded: []
+  declined:
+    - 'kick %s You''ve declined the resource pack.\nIn order to play you must accept it.'
+  failed: []
+  downloaded: []
+  invalid-url: []
+  discarded: []
+  reload-failed: []

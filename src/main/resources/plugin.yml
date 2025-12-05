@@ -1,0 +1,23 @@
+name: PackStatusPlaceholder
+main: valorless.packstatus.Main
+version: version-number
+author: Valorless
+depend: [PlaceholderAPI]
+api-version: 1.18
+commands:
+  packstatus:
+    description: Main command.
+  packstatus reload:
+    description: Reloads the configuration file.
+    usage: /packstatus reload
+    permission: packstatus.reload
+    permission-message: You don't have packstatus.reload.
+permissions:
+  packstatus.*:
+    description: Gives access to all PackStatusPlaceholder commands.
+    children:
+      havenpack.reload: true
+  packstatus.reload:
+    description: Allows you to reload the configuration.
+    default: op
+  

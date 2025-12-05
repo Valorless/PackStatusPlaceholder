@@ -1,0 +1,184 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>valorless.packstatus</groupId>
+  <artifactId>PackStatusPlaceholder</artifactId>
+  <version>1.0.0</version>
+  <scm>
+    <connection>scm:svn:http://127.0.0.1/dummy</connection>
+    <developerConnection>scm:svn:https://127.0.0.1/dummy</developerConnection>
+    <tag>HEAD</tag>
+    <url>http://127.0.0.1/dummy</url>
+  </scm>
+  <build>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                  <source>21</source>
+                  <target>21</target>
+              </configuration>
+          </plugin>
+
+          <!-- Maven Shade Plugin: shade ValorlessUtils and minimize unused classes -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.5.0</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>shade</goal>
+                </goals>
+                <configuration>
+                  <!-- Replace the normal artifact with the shaded one -->
+                  <shadedArtifactAttached>false</shadedArtifactAttached>
+
+                  <!-- Try to remove unused classes from included dependencies -->
+                  <minimizeJar>false</minimizeJar>
+
+                  <!-- Avoid removing signature files -->
+                  <filters>
+                    <filter>
+                      <artifact>*:*</artifact>
+                      <excludes>
+                        <exclude>META-INF/*.SF</exclude>
+                        <exclude>META-INF/*.DSA</exclude>
+                        <exclude>META-INF/*.RSA</exclude>
+                      </excludes>
+                    </filter>
+                  </filters>
+
+                  <!-- Only include the ValorlessUtils artifact for shading -->
+                  <artifactSet>
+                    <includes>
+                      <include>com.github.Valorless:ValorlessUtils</include>
+                    </includes>
+                  </artifactSet>
+
+                  <!-- Merge META-INF/services entries so ServiceLoader still works -->
+                  <transformers>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                  </transformers>
+
+                  <!-- If ValorlessUtils uses reflection or resources you must ensure those classes are kept.
+                       You can:
+                        - Add <filters> for the dependency that include the packages you know are needed,
+                        - OR add a relocation and then explicitly include packages,
+                        - OR use ProGuard with keep rules for reflective access.
+                       Example filter to force-include a package (uncomment and edit if needed):
+                  -->
+                  
+                  <filters>
+                    <filter>
+                      <artifact>com.github.Valorless:ValorlessUtils</artifact>
+                      <includes>
+                        <include>valorless/valorlessutils/config/**</include>
+                        <include>valorless/valorlessutils/file/**</include>
+                        <include>valorless/valorlessutils/utils/**</include>
+                        <include>valorless/valorlessutils/ValorlessUtils.class</include>
+                        <include>valorless/valorlessutils/ValorlessUtils$Log.class</include>
+                      </includes>
+                    </filter>
+                  </filters>
+
+                  <!-- Highly recommended: relocate the library to avoid classpath collisions.
+                       Uncomment and update the <pattern> to match the library's root package.
+                  -->
+                  <!--
+                  <relocations>
+                    <relocation>
+                      <pattern>com.valorless</pattern>
+                      <shadedPattern>valorless.packstatus.libs.com.valorless</shadedPattern>
+                    </relocation>
+                  </relocations>
+                  -->
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>maven-replacer-plugin</artifactId>
+        <version>1.4.1</version>
+        <executions>
+            <execution>
+                <phase>prepare-package</phase>
+                <goals>
+                    <goal>replace</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <file>target/classes/plugin.yml</file>
+            <replacements>
+                <replacement>
+                    <token>version-number</token>
+                    <value>${project.version}</value>
+                </replacement>
+            </replacements>
+        </configuration>
+    </plugin>
+    <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>test</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/classes</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>src/main/resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+        </executions>
+      </plugin>
+      </plugins>
+      <finalName>${project.artifactId}-${project.version}</finalName>
+  </build>
+  <repositories>
+       <repository>
+         <id>spigot-repo</id>
+         <url>https://hub.spigotmc.org/nexus/content/repositories/public/</url>
+       </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/releases/</url>
+        </repository>
+   </repositories>
+  <dependencies>
+       <dependency>
+           <groupId>org.spigotmc</groupId>
+           <artifactId>spigot-api</artifactId>
+           <version>1.20.3-R0.1-SNAPSHOT</version><!--change this value depending on the version or use LATEST-->
+           <type>jar</type>
+           <scope>provided</scope>
+       </dependency>
+        <dependency>
+            <groupId>com.github.Valorless</groupId>
+            <artifactId>ValorlessUtils</artifactId>
+            <version>1.17.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.6</version>
+            <scope>provided</scope>
+        </dependency>
+   </dependencies>
+</project>
