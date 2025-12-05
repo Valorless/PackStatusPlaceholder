@@ -32,8 +32,8 @@ commands:
 ```
 
 ## Shaded classes
-- [`valorless/valorlessutils/ValorlessUtils.java`](https://github.com/Valorless/ValorlessUtils/tree/main/src/main/java/valorless/valorlessutils/ValorlessUtils.java)
-- [`valorless/valorlessutils/config/Config.java`](https://github.com/Valorless/ValorlessUtils/tree/main/src/main/java/valorless/valorlessutils/config/Config.java)
-- [`valorless/valorlessutils/file/**`](https://github.com/Valorless/ValorlessUtils/tree/main/src/main/java/valorless/valorlessutils/file)
-- [`valorless/valorlessutils/utils/Utils.java`](https://github.com/Valorless/ValorlessUtils/tree/main/src/main/java/valorless/valorlessutils/utils/Utils.java)
+- [`valorless/valorlessutils/ValorlessUtils.java`](https://github.com/Valorless/ValorlessUtils/tree/main/src/main/java/valorless/valorlessutils/ValorlessUtils.java) Used for logging.
+- [`valorless/valorlessutils/config/Config.java`](https://github.com/Valorless/ValorlessUtils/tree/main/src/main/java/valorless/valorlessutils/config/Config.java) Used for configs.
+- [`valorless/valorlessutils/file/**`](https://github.com/Valorless/ValorlessUtils/tree/main/src/main/java/valorless/valorlessutils/file) Used for configs.
+- [`valorless/valorlessutils/utils/Utils.java`](https://github.com/Valorless/ValorlessUtils/tree/main/src/main/java/valorless/valorlessutils/utils/Utils.java) Used for logging and configs.
 
