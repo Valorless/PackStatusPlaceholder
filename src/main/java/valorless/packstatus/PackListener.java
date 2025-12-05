@@ -25,10 +25,11 @@ public class PackListener implements Listener {
             	if(Main.config.HasKey("log") && Main.config.GetBool("log")){
             		Log.Info(Main.plugin, String.format("%s Pack Accepted", event.getPlayer().getName()));
             	}
-            	for(String acmd : Main.config.GetStringList("commands.accepted")) {
-                	acmd = acmd.replace("%username%", event.getPlayer().getName());
-                	acmd = acmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
-                	SendCommand(acmd, event.getPlayer());
+            	for(String cmd : Main.config.GetStringList("commands.accepted")) {
+                	cmd = cmd.replace("%username%", event.getPlayer().getName());
+                	cmd = cmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
+                	cmd = Lang.parse(cmd, event.getPlayer());
+                	SendCommand(cmd, event.getPlayer());
             	}
             	isLoaded.put(event.getPlayer(), false);
             	break;
@@ -36,10 +37,11 @@ public class PackListener implements Listener {
             	if(Main.config.HasKey("log") && Main.config.GetBool("log")){
             		Log.Info(Main.plugin, String.format("%s Pack Declined", event.getPlayer().getName()));
             	}
-            	for(String acmd : Main.config.GetStringList("commands.declined")) {
-                	acmd = acmd.replace("%username%", event.getPlayer().getName());
-                	acmd = acmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
-                	SendCommand(acmd, event.getPlayer());
+            	for(String cmd : Main.config.GetStringList("commands.declined")) {
+                	cmd = cmd.replace("%username%", event.getPlayer().getName());
+                	cmd = cmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
+                	cmd = Lang.parse(cmd, event.getPlayer());
+                	SendCommand(cmd, event.getPlayer());
             	}
             	isLoaded.put(event.getPlayer(), false);
             	break;
@@ -47,10 +49,11 @@ public class PackListener implements Listener {
             	if(Main.config.HasKey("log") && Main.config.GetBool("log")){
             		Log.Info(Main.plugin, String.format("%s Pack Failed Download", event.getPlayer().getName()));
             	}
-            	for(String acmd : Main.config.GetStringList("commands.failed")) {
-                	acmd = acmd.replace("%username%", event.getPlayer().getName());
-                	acmd = acmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
-                	SendCommand(acmd, event.getPlayer());
+            	for(String cmd : Main.config.GetStringList("commands.failed")) {
+                	cmd = cmd.replace("%username%", event.getPlayer().getName());
+                	cmd = cmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
+                	cmd = Lang.parse(cmd, event.getPlayer());
+                	SendCommand(cmd, event.getPlayer());
             	}
             	isLoaded.put(event.getPlayer(), false);
             	break;
@@ -61,6 +64,7 @@ public class PackListener implements Listener {
             	for(String cmd : Main.config.GetStringList("commands.loaded")) {
                 	cmd = cmd.replace("%username%", event.getPlayer().getName());
                 	cmd = cmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
+                	cmd = Lang.parse(cmd, event.getPlayer());
                 	SendCommand(cmd, event.getPlayer());
             	}
             	isLoaded.put(event.getPlayer(), true);
@@ -71,10 +75,11 @@ public class PackListener implements Listener {
             	if(Main.config.HasKey("log") && Main.config.GetBool("log")){
             		Log.Info(Main.plugin, String.format("%s Pack Downloaded", event.getPlayer().getName()));
             	}
-            	for(String acmd : Main.config.GetStringList("commands.downloaded")) {
-                	acmd = acmd.replace("%username%", event.getPlayer().getName());
-                	acmd = acmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
-                	SendCommand(acmd, event.getPlayer());
+            	for(String cmd : Main.config.GetStringList("commands.downloaded")) {
+                	cmd = cmd.replace("%username%", event.getPlayer().getName());
+                	cmd = cmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
+                	cmd = Lang.parse(cmd, event.getPlayer());
+                	SendCommand(cmd, event.getPlayer());
             	}
             	isLoaded.put(event.getPlayer(), false);
             	break;
@@ -82,10 +87,11 @@ public class PackListener implements Listener {
             	if(Main.config.HasKey("log") && Main.config.GetBool("log")){
             		Log.Info(Main.plugin, "Pack Invalid URL");
             	}
-            	for(String acmd : Main.config.GetStringList("commands.invalid-url")) {
-                	acmd = acmd.replace("%username%", event.getPlayer().getName());
-                	acmd = acmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
-                	SendCommand(acmd, event.getPlayer());
+            	for(String cmd : Main.config.GetStringList("commands.invalid-url")) {
+                	cmd = cmd.replace("%username%", event.getPlayer().getName());
+                	cmd = cmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
+                	cmd = Lang.parse(cmd, event.getPlayer());
+                	SendCommand(cmd, event.getPlayer());
             	}
             	isLoaded.put(event.getPlayer(), false);
             	break;
@@ -93,10 +99,11 @@ public class PackListener implements Listener {
             	if(Main.config.HasKey("log") && Main.config.GetBool("log")){
             		Log.Info(Main.plugin, String.format("%s Pack Failed Reload", event.getPlayer().getName()));
             	}
-            	for(String acmd : Main.config.GetStringList("commands.reload-failed")) {
-                	acmd = acmd.replace("%username%", event.getPlayer().getName());
-                	acmd = acmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
-                	SendCommand(acmd, event.getPlayer());
+            	for(String cmd : Main.config.GetStringList("commands.reload-failed")) {
+                	cmd = cmd.replace("%username%", event.getPlayer().getName());
+                	cmd = cmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
+                	cmd = Lang.parse(cmd, event.getPlayer());
+                	SendCommand(cmd, event.getPlayer());
             	}
             	isLoaded.put(event.getPlayer(), false);
             	break;
@@ -104,10 +111,11 @@ public class PackListener implements Listener {
             	if(Main.config.HasKey("log") && Main.config.GetBool("log")){
             		Log.Info(Main.plugin, String.format("%s Pack Discarded", event.getPlayer().getName()));
             	}
-            	for(String acmd : Main.config.GetStringList("commands.discarded")) {
-                	acmd = acmd.replace("%username%", event.getPlayer().getName());
-                	acmd = acmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
-                	SendCommand(acmd, event.getPlayer());
+            	for(String cmd : Main.config.GetStringList("commands.discarded")) {
+                	cmd = cmd.replace("%username%", event.getPlayer().getName());
+                	cmd = cmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
+                	cmd = Lang.parse(cmd, event.getPlayer());
+                	SendCommand(cmd, event.getPlayer());
             	}
             	isLoaded.put(event.getPlayer(), false);
             	break;
@@ -129,6 +137,7 @@ public class PackListener implements Listener {
     	for(String cmd : Main.config.GetStringList("commands.join")) {
         	cmd = cmd.replace("%username%", event.getPlayer().getName());
         	cmd = cmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
+        	cmd = Lang.parse(cmd, event.getPlayer());
         	SendCommand(cmd, event.getPlayer());
     	}
     	
@@ -139,6 +148,7 @@ public class PackListener implements Listener {
     	for(String cmd : Main.config.GetStringList("commands.quit")) {
         	cmd = cmd.replace("%username%", event.getPlayer().getName());
         	cmd = cmd.replace("%uuid%", event.getPlayer().getUniqueId().toString());
+        	cmd = Lang.parse(cmd, event.getPlayer());
         	SendCommand(cmd, event.getPlayer());
     	}
     }
